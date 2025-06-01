@@ -1,0 +1,105 @@
+﻿<Window x:Class="SerialCommunicationApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SerialCommunicationApp"
+        mc:Ignorable="d"
+        Title="串口通信工具" Height="350" Width="500">
+    <Grid Margin="10">
+        <!--  计划用Grid布局，将各个控件分行显示  -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!--  串口选择部分  -->
+            <RowDefinition Height="Auto"/>
+            <!--  文本与指令发送部分  -->
+            <RowDefinition Height="Auto"/>
+            <!--  特殊键组合键部分  -->
+            <RowDefinition Height="Auto"/>
+            <!--  快捷指令设置与发送部分  -->
+            <RowDefinition Height="Auto"/>
+            <!--  计日志状态显示部分  -->
+        </Grid.RowDefinitions>
+
+        <!-- 第一行：串口选择区域 -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="可用串口:" VerticalAlignment="Center"/>
+            <ComboBox x:Name="cmbPorts" Width="120" Margin="5,0"/>
+            <Button x:Name="btnRefresh" Content="刷新" Width="80" Margin="5,0" Click="BtnRefresh_Click"/>
+        </StackPanel>
+
+        <!-- 第二行：输入和发送区域 -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0">
+            <TextBox x:Name="txtInput" Width="359" Margin="0,0,5,0"
+                     AcceptsReturn="True"
+                     VerticalScrollBarVisibility="Auto"/>
+            <!-- AcceptsReturn 属性使得回车键可以换行，VerticalScrollBarVisibility 属性使得文本框可以自动显示滚动条 -->
+            <StackPanel Orientation="Vertical">
+                <Button x:Name="btnSend" Content="发送" Width="80" Margin="0,0,0,5" Click="BtnSend_Click"/>
+                <Button x:Name="btnSendEnrty" Content="指令" Width="80" Margin="0,0,0,5" Click="btnSendEnrty_Click"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- 第三行：功能按钮区域 -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,15,0,0">
+            <!-- 左侧：方向键 -->
+            <StackPanel Orientation="Vertical" Width="150">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="btnUp" Content="↑" Width="40" Margin="2" Click="btnUp_Click" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="btnLeft" Content="←" Width="40" Margin="2" Click="btnLeft_Click" />
+                    <Button x:Name="btnDown" Content="↓" Width="40" Margin="2" Click="btnDown_Click" />
+                    <Button x:Name="btnRight" Content="→" Width="40" Margin="2" Click="btnRight_Click" />
+                </StackPanel>
+            </StackPanel>
+
+            <!-- 右侧：功能键 -->
+            <StackPanel Orientation="Vertical" Width="300">
+                <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                    <Button x:Name="btnEnter" Content="Enter" Width="94" Margin="2" Click="BtnEnter_Click" />
+                    <Button x:Name="btnEsc" Content="ESC" Width="60" Margin="2" Click="btnEsc_Click" />
+                    <Button x:Name="btnClearC" Content="CtrlC" Width="60" Margin="2" Click="btnClearC_Click"   />
+                    <Button x:Name="btnClearX" Content="CtrlX" Width="60" Margin="2" Click="btnClearX_Click"   />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5,5,0,0">
+                    <Button x:Name="btnTab" Content="Tab" Width="60" Margin="2" Click="btnTab_Click" />
+                    <Button x:Name="btnBackspace" Content="Backspace" Width="63" Margin="2" Click="btnBackspace_Click" />
+                    <Button x:Name="btnClearO" Content="CtrlO" Width="43" Margin="2" Click="btnClearO_Click"   />
+                    <TextBox x:Name="txtCtrlChar" Width="30" Margin="5,2" MaxLength="1"/>
+                    <Button x:Name="btnCtrlSend" Content="Ctrl+发送" Width="66" Margin="2" Height="23"/>
+
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <!--  第三行：功能按钮区域结束  -->
+        
+        
+        <!-- 第四行：快捷指令区域 -->
+        <Grid Grid.Row="3" Margin="0,15,82,15" RenderTransformOrigin="0.57,0.483">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Width="390">
+                <Button x:Name="kjjsehezhi" Content="快捷指令设置" Width="80" Margin="2" Height="25" Click="kjjsehezhi_Click"/>
+                <Button x:Name="btenkj1" Content="btenkj1" Width="60" Margin="2" Height="25" Click="btenkj1_Click"/>
+                <Button x:Name="btenkj2" Content="btenkj2" Width="60" Margin="2" Height="25" Click="btenkj2_Click"/>
+                <Button x:Name="btenkj3" Content="btenkj3" Width="60" Margin="2" Height="25" Click="btenkj3_Click"/>
+                <Button x:Name="kjjsshanchu" Content="删除快捷指令" Width="86" Margin="2" Height="25" Click="kjjsshanchu_Click"/>
+            </StackPanel>
+
+
+
+        </Grid>
+        <!--  第四行：快捷指令区域结束  -->
+
+
+
+            <!-- 第五行：状态/日志区域 -->
+        <StackPanel Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBox x:Name="txtInput1" Width="383" Margin="0,0,5,0" Height="104"/>
+        </StackPanel>
+    </Grid>
+    <!--  主窗口顶层Grid布局结束  -->
+</Window>
